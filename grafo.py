@@ -16,7 +16,7 @@ class grafo:
 			self.vertices[a].agregarVecino(b, p)
 			self.vertices[b].agregarVecino(a, p)
 
-			self.grafo.add_edge(str(a), str(b))
+			self.grafo.add_edge(str(a), str(b), weight=p)
 			self.grafo.add_edge(str(b), str(a))
 	
 	def camino(self, a, b):
