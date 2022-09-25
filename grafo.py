@@ -79,3 +79,6 @@ class grafo:
 		nx.draw_networkx_edge_labels(self.grafo, pos, edge_labels=labels)
 		plt.axis('off')
 		plt.show()
+	
+	def dibujar_grafo_graphiz(self):
+		pass
