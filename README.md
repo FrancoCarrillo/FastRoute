@@ -6,3 +6,4 @@ Repository for the FastRoute Application, this application is a desktop applicat
 
 - [@FrancoCarrillo](https://www.github.com/FrancoCarrillo)
 - [@EleazarBT](https://github.com/EleazarBT)
+- [@SamuelCano03](https://github.com/SamuelCano03)
