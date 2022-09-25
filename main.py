@@ -1,23 +1,16 @@
 import math
 import grafo 
+import numpy as np
 
+calles = np.loadtxt("data\Calles.txt", dtype=np.str_ , delimiter=",")
+intersecciones = np.loadtxt("data\Interseccion_.txt", dtype=int, delimiter=",")
 
+g = grafo.grafo()
 
-# g = grafo.grafo()
-# g.agregarVertice(1)
-# g.agregarVertice(2)
-# g.agregarVertice(3)
-# g.agregarVertice(4)
-# g.agregarVertice(5)
-# g.agregarVertice(6)
-# g.agregarArista(1, 6, 14)
-# g.agregarArista(1, 2, 7)
-# g.agregarArista(1, 3, 9)
-# g.agregarArista(2, 3, 10)
-# g.agregarArista(2, 4, 15)
-# g.agregarArista(3, 4, 11)
-# g.agregarArista(3, 6, 2)
-# g.agregarArista(4, 5, 6)
-# g.agregarArista(5, 6, 9)
+for c in calles:
+    g.agregarVertice(int(c[0]))
+
+for  inter in intersecciones:
+    g.agregarArista(int(inter[0]), int(inter[1]), 0)
 
 g.dibujar_grafo()

@@ -72,9 +72,9 @@ class grafo:
 	def dibujar_grafo(self):
 		pos = nx.shell_layout(self.grafo)
 		labels = nx.get_edge_attributes(self.grafo, 'weight')
-		nx.draw_networkx_nodes(self.grafo, pos, node_size=700)
-		nx.draw_networkx_edges(self.grafo, pos, width=4)
-		nx.draw_networkx_labels(self.grafo, pos, font_size=20, font_family='sans-serif')
+		nx.draw_networkx_nodes(self.grafo, pos, node_size=100)
+		nx.draw_networkx_edges(self.grafo, pos, width=1)
+		nx.draw_networkx_labels(self.grafo, pos, font_size=5, font_family='sans-serif')
 		labels = nx.get_edge_attributes(self.grafo, 'weight')
 		nx.draw_networkx_edge_labels(self.grafo, pos, edge_labels=labels)
 		plt.axis('off')
