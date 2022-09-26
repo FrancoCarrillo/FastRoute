@@ -1,6 +1,9 @@
 import vertice
 import networkx as nx
 import matplotlib.pyplot as plt
+import graphviz as gv
+import PIL
+PIL.Image.MAX_IMAGE_PIXELS = 933120000
 
 class grafo:
 	def __init__(self):
@@ -81,4 +84,16 @@ class grafo:
 		plt.show()
 	
 	def dibujar_grafo_graphiz(self):
-		pass
+		'''#Dibujar grafo con graphviz
+		g = gv.Digraph(format='png')
+		g.render('grafo', view=True)'''
+
+		nx.nx_agraph.write_dot(self.grafo, 'grafo.dot')
+		#Mostrar el grafo usando graphviz
+		nx.nx_agraph.view_pygraphviz(self.grafo, prog='dot')
+		#Mostrar el grafo usando graphviz
+		gv.render('dot', 'pdf', 'grafo.dot')
+		print(PIL.Image.open('grafo.pdf'))
+
+
+		

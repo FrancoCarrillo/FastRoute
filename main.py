@@ -2,8 +2,12 @@ import math
 import grafo 
 import numpy as np
 
-calles = np.loadtxt("data\Calles.txt", dtype=np.str_ , delimiter=",")
-intersecciones = np.loadtxt("data\Interseccion_.txt", dtype=int, delimiter=",")
+
+
+fileRoute = "FastRoute\data\Calles.txt"
+
+calles = np.loadtxt("FastRoute\data\Calles.txt", dtype=np.str_ , delimiter=",")
+intersecciones = np.loadtxt("FastRoute\data\Interseccion.txt", dtype=int, delimiter=",")
 
 g = grafo.grafo()
 
@@ -13,4 +17,4 @@ for c in calles:
 for  inter in intersecciones:
     g.agregarArista(int(inter[0]), int(inter[1]), 0)
 
-g.dibujar_grafo()
+g.dibujar_grafo_graphiz()
