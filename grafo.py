@@ -92,8 +92,8 @@ class grafo:
 		#Mostrar el grafo usando graphviz
 		nx.nx_agraph.view_pygraphviz(self.grafo, prog='dot')
 		#Mostrar el grafo usando graphviz
-		gv.render('dot', 'pdf', 'grafo.dot')
-		print(PIL.Image.open('grafo.pdf'))
+		#gv.render('dot', 'pdf', 'grafo.dot')
+		#print(PIL.Image.open('grafo.dot.pdf'))
 
 
 		
