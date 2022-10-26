@@ -3,11 +3,8 @@ import grafo
 import numpy as np
 
 
-
-fileRoute = "FastRoute\data\Calles.txt"
-
-calles = np.loadtxt("FastRoute\data\Calles.txt", dtype=np.str_ , delimiter=",")
-intersecciones = np.loadtxt("FastRoute\data\Interseccion.txt", dtype=int, delimiter=",")
+calles = np.loadtxt("data\Calles.txt", dtype=np.str_ , delimiter=",")
+intersecciones = np.loadtxt("data\Interseccion.txt", dtype=int, delimiter=",")
 
 g = grafo.grafo()
 
