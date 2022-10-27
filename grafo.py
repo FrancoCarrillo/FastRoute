@@ -5,7 +5,7 @@ import graphviz as gv
 import PIL
 PIL.Image.MAX_IMAGE_PIXELS = 933120000
 
-class grafo:
+class Grafo:
 	def __init__(self):
 		self.vertices = {}
 		self.grafo = nx.DiGraph()
@@ -70,18 +70,6 @@ class grafo:
 	def imprimir(self):
 		for v in self.vertices:
 			print("El costo del vertice "+str(self.vertices[v].id)+" es "+ str(self.vertices[v].costo)+" llegando desde "+str(self.vertices[v].padre))
-
-
-	def dibujar_grafo(self):
-		pos = nx.shell_layout(self.grafo)
-		labels = nx.get_edge_attributes(self.grafo, 'weight')
-		nx.draw_networkx_nodes(self.grafo, pos, node_size=100)
-		nx.draw_networkx_edges(self.grafo, pos, width=1)
-		nx.draw_networkx_labels(self.grafo, pos, font_size=5, font_family='sans-serif')
-		labels = nx.get_edge_attributes(self.grafo, 'weight')
-		nx.draw_networkx_edge_labels(self.grafo, pos, edge_labels=labels)
-		plt.axis('off')
-		plt.show()
 	
 	def dibujar_grafo_graphiz(self):
 		'''#Dibujar grafo con graphviz
