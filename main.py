@@ -1,4 +1,5 @@
-import fast_route as fr
+
+from interfaz import * 
 
 
 # calles = np.loadtxt("data\Calles.txt", dtype=np.str_ , delimiter=",")
@@ -14,9 +15,11 @@ import fast_route as fr
 
 # g.dibujar_grafo_graphiz()
 
+
+class Sistema:
+    def __init__(self):
+        self.menu = Menu()
+
 if __name__ == "__main__":
-    program = fr.Fast_Route()
-    program.leer_archivos()
-    program.realizar_grafo()
-    program.realizar_dijkstra(10)
-    program.hallar_camino_corto(10,120)
+    Sistema()
+    
