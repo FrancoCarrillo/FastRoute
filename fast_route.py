@@ -10,10 +10,10 @@ import random
 class Fast_Route:
     def __init__(self):
         self.lectura_calles = np.loadtxt(
-            "FastRoute/data/Calles.txt", dtype=np.str_, delimiter=","
+            "data/Calles.txt", dtype=np.str_, delimiter=","
         )
         self.letura_intersecciones = np.loadtxt(
-            "FastRoute/data/Interseccion.txt",
+            "data/Interseccion.txt",
             delimiter=",",
             converters=lambda x: float(x),
         )

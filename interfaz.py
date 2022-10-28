@@ -15,7 +15,7 @@ def validar_vacio(campo):
 def leerCalles():
     # El archivo Calles.txt contiene la información de las calles. Se debe leer el archivo y almacenar cada calle en una lista. Estan registradas en el formato: id_calle, nombre_calle.
     # Se debe retornar la lista.
-    with open("FastRoute/data/Calles.txt", "r") as archivo:
+    with open("data/Calles.txt", "r") as archivo:
         id_calle = []
         nombre_calle = []
         for linea in archivo:
@@ -28,7 +28,7 @@ def leerDirecciones():
     # Se debe almacenar en una lista las direcciones de origen. En el archivo direcciones.txt se encuentra la información de las direcciones de origen divididas por comas.
     # Se debe leer el archivo y almacenar cada dirección en una lista.
     # Se debe retornar la lista.
-    with open("FastRoute/data/direcciones.txt", "r") as archivo:
+    with open("data/direcciones.txt", "r") as archivo:
         lista = archivo.read().split(",")
     return lista
 
@@ -44,7 +44,7 @@ def buscarCalleXId(lista_ids):
     # print(lista_ids)
     # print("*****************")
     # Ahora si leer el archivo y buscar el nombre de la calle
-    with open("FastRoute/data/Calles.txt", "r") as archivo:
+    with open("data/Calles.txt", "r") as archivo:
         lista = []
         # Se debe buscar en todo el archivo id por id en el orden que vienen los de lista_ids. Y no debe continuar hasta que lo encuentre
         for id in lista_ids:
@@ -236,7 +236,8 @@ class Ruta(InterfazGenerica):
             self.ventana_principal, yscrollcommand=scroll.set
         )
         for i in range(len(self.lista)):
-            self.listaDirecciones.insert(END, self.lista[i])
+            ruta = str(i + 1) + " "  + self.lista[i]
+            self.listaDirecciones.insert(END, ruta)
         font = Font(family="Arial", size=12, weight="normal")
         self.listaDirecciones.config(font=font)
         self.listaDirecciones.grid(
