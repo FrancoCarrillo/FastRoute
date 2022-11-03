@@ -10,7 +10,7 @@ from collections import defaultdict
 
 class Fast_Route:
     def __init__(self):
-        self.letura_intersecciones = pd.read_csv("data\Interseccion.txt", sep=";", header=None)
+        self.letura_intersecciones = pd.read_csv("data\Interseccion_prueba.txt", sep=";", header=None)
         self.calles = dict()
         self.intersecciones = {}
         self.grafo_ruta = defaultdict(list)

@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_91e7c64e83460beff81ead87815c68b7 {
+                #map_1b724abbc39935f1f0d128c04893a8ad {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,15 +35,15 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_91e7c64e83460beff81ead87815c68b7" ></div>
+            <div class="folium-map" id="map_1b724abbc39935f1f0d128c04893a8ad" ></div>
         
 </body>
 <script>    
     
-            var map_91e7c64e83460beff81ead87815c68b7 = L.map(
-                "map_91e7c64e83460beff81ead87815c68b7",
+            var map_1b724abbc39935f1f0d128c04893a8ad = L.map(
+                "map_1b724abbc39935f1f0d128c04893a8ad",
                 {
-                    center: [-12.0466033, -77.0431118],
+                    center: [-12.0459308, -77.0427831],
                     crs: L.CRS.EPSG3857,
                     zoom: 17,
                     zoomControl: true,
@@ -55,28 +55,82 @@
 
         
     
-            var tile_layer_7e063bea51762205040edc70ef4fae30 = L.tileLayer(
+            var tile_layer_5a95489f6fa0921d23a61f2a1fa843c1 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_91e7c64e83460beff81ead87815c68b7);
+            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+        
+    
+            var marker_e6bc0bc145a8e5c1c352dd17e8659787 = L.marker(
+                [-12.0459308, -77.0427831],
+                {}
+            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+        
+    
+        var popup_b41e9e6264dc88f925d77101441f3042 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fec6ae27306cc3b2993e89155ecb1e96 = $(`<div id="html_fec6ae27306cc3b2993e89155ecb1e96" style="width: 100.0%; height: 100.0%;"><i>Plaza 2 de Mayo</i></div>`)[0];
+            popup_b41e9e6264dc88f925d77101441f3042.setContent(html_fec6ae27306cc3b2993e89155ecb1e96);
+        
+
+        marker_e6bc0bc145a8e5c1c352dd17e8659787.bindPopup(popup_b41e9e6264dc88f925d77101441f3042)
+        ;
+
+        
+    
+    
+            marker_e6bc0bc145a8e5c1c352dd17e8659787.bindTooltip(
+                `<div>
+                     Start Place
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_33d8083daa9caf3804ed41ca12c9f730 = L.marker(
+                [-12.0508129, -77.042518],
+                {}
+            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+        
+    
+        var popup_473203f36ff1ee65af945659c99f155b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_793d86739372692f21beaada7f5a57a8 = $(`<div id="html_793d86739372692f21beaada7f5a57a8" style="width: 100.0%; height: 100.0%;"><i>Alfonso Ugarte</i></div>`)[0];
+            popup_473203f36ff1ee65af945659c99f155b.setContent(html_793d86739372692f21beaada7f5a57a8);
+        
+
+        marker_33d8083daa9caf3804ed41ca12c9f730.bindPopup(popup_473203f36ff1ee65af945659c99f155b)
+        ;
+
+        
+    
+    
+            marker_33d8083daa9caf3804ed41ca12c9f730.bindTooltip(
+                `<div>
+                     End Place
+                 </div>`,
+                {"sticky": true}
+            );
         
     
 
-        function geo_json_f1fe8ea1e40b7d6b21d53b9a41844795_onEachFeature(feature, layer) {
+        function geo_json_f4d188b132355ae23b450aa19c615f3a_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_f1fe8ea1e40b7d6b21d53b9a41844795 = L.geoJson(null, {
-                onEachFeature: geo_json_f1fe8ea1e40b7d6b21d53b9a41844795_onEachFeature,
+        var geo_json_f4d188b132355ae23b450aa19c615f3a = L.geoJson(null, {
+                onEachFeature: geo_json_f4d188b132355ae23b450aa19c615f3a_onEachFeature,
             
         });
 
-        function geo_json_f1fe8ea1e40b7d6b21d53b9a41844795_add (data) {
-            geo_json_f1fe8ea1e40b7d6b21d53b9a41844795
+        function geo_json_f4d188b132355ae23b450aa19c615f3a_add (data) {
+            geo_json_f4d188b132355ae23b450aa19c615f3a
                 .addData(data)
-                .addTo(map_91e7c64e83460beff81ead87815c68b7);
+                .addTo(map_1b724abbc39935f1f0d128c04893a8ad);
         }
-            geo_json_f1fe8ea1e40b7d6b21d53b9a41844795_add({"features": [{"geometry": {"coordinates": [[-77.043112, -12.046603], [-77.043048, -12.046678]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043048, -12.046678], [-77.042787, -12.047613]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042787, -12.047613], [-77.042752, -12.048184]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042752, -12.048184], [-77.042653, -12.049088]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042653, -12.049088], [-77.042556, -12.050478]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042556, -12.050478], [-77.042518, -12.050813]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042518, -12.050813], [-77.042419, -12.051938]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042419, -12.051938], [-77.042297, -12.053414]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042297, -12.053414], [-77.042203, -12.054484]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042203, -12.054484], [-77.042119, -12.05542]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042119, -12.05542], [-77.042043, -12.056207]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042043, -12.056207], [-77.042008, -12.056746]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042008, -12.056746], [-77.04198, -12.057175]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.04198, -12.057175], [-77.041897, -12.058061]], "type": "LineString"}, "properties": {}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_f4d188b132355ae23b450aa19c615f3a_add({"features": [{"geometry": {"coordinates": [[-77.042783, -12.045931], [-77.04309, -12.046096]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.04309, -12.046096], [-77.043111, -12.046125]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043111, -12.046125], [-77.043175, -12.046277]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043175, -12.046277], [-77.043112, -12.046603]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043112, -12.046603], [-77.043048, -12.046678]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043048, -12.046678], [-77.042787, -12.047613]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042787, -12.047613], [-77.042752, -12.048184]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042752, -12.048184], [-77.042653, -12.049088]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042653, -12.049088], [-77.042556, -12.050478]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042556, -12.050478], [-77.042518, -12.050813]], "type": "LineString"}, "properties": {}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
 </script>

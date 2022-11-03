@@ -17,7 +17,7 @@ def validar_vacio(campo):
 
 def leerCalles():
     # Se debe retornar la lista.
-    with open("data/Interseccion.txt", "r", encoding="utf-8") as archivo:
+    with open("data/Interseccion_prueba.txt", "r", encoding="utf-8") as archivo:
         id_calle = []
         nombre_calle = []
         for linea in archivo:
@@ -31,7 +31,7 @@ def buscarCalleXId(lista_ids):
         for i in lista_ids
     ]
     # Ahora si leer el archivo y buscar el nombre de la calle
-    with open("data/Interseccion.txt", "r", encoding="utf-8") as archivo:
+    with open("data/Interseccion_prueba.txt", "r", encoding="utf-8") as archivo:
         lista = []
         # Se debe buscar en todo el archivo id por id en el orden que vienen los de lista_ids. Y no debe continuar hasta que lo encuentre
         for id in lista_ids:
@@ -286,24 +286,43 @@ class Ruta(InterfazGenerica):
 
         features = []
 
+        len_intersecciones = len(direccioes_id)
+
+        folium.Marker(
+            (program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX, program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), popup=f"<i>{program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].calle}</i>", tooltip="Start Place"
+        ).add_to(m)
+
+
 
         anterior = -1
+        
+        range_geo = len(direccioes_id) - 1
 
-        for indice in range(len(direccioes_id) - 1):
+        for indice in range(range_geo):
             if anterior != int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId):
                 anterior = int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId)
-            linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY, program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
+            
+            if indice == range_geo-1:
+                folium.Marker(
+                        (program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].destinoX, 
+                        program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].destinoY), 
+                        popup=f"<i>{program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].calle}</i>", 
+                        tooltip="End Place"
+                    ).add_to(m)
+
+            linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY, 
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
             features.append(Feature(geometry=linea))
 
         feature_collection = FeatureCollection(features)
 
-        with open('ruta.geojson', 'w') as f:
+        with open('fast_route.geojson', 'w') as f:
             dump(feature_collection, f)
 
-        rutaData = os.path.join("ruta.geojson")
-        folium.GeoJson(rutaData, name='ruta').add_to(m)
+        rutaData = os.path.join("fast_route.geojson")
+        folium.GeoJson(rutaData, name='fast_route').add_to(m)
         m.save("index.html")
         webbrowser.open_new_tab('index.html')
 
