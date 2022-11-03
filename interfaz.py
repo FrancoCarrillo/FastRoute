@@ -23,8 +23,6 @@ def leerCalles():
             nombre_calle.append(linea.split(";")[0] + " " + linea.split(";")[2])
     return id_calle, nombre_calle
 
-destinos_, direcciones_ = leerCalles()
-
 def buscarCalleXId(lista_ids):
     lista_ids = [
         str(i)
@@ -66,7 +64,7 @@ class Menu(InterfazGenerica):
         super().__init__()
         self.w = 350
         self.h = 250
-        self.id_origen, self.direccionesOrigen =  self.id_destino, self.direccionesDestino = destinos_, direcciones_
+        self.id_origen, self.direccionesOrigen =  self.id_destino, self.direccionesDestino = leerCalles()
         self.bg = "#ffffff"
         self.fg = "#000000"
         self.btnFg = "#ffffff"
@@ -222,7 +220,7 @@ class Ruta(InterfazGenerica):
 
 
         scroll = Scrollbar(self.ventana_principal, orient=VERTICAL)
-        scroll.grid(row=1, column=1, rowspan=len(self.lista), sticky="nsew")
+        scroll.grid(row=1, column=1, columnspan=1, rowspan=len(self.lista), sticky="ns")
         self.listaDirecciones = Listbox(
             self.ventana_principal, yscrollcommand=scroll.set
         )
@@ -251,11 +249,25 @@ class Ruta(InterfazGenerica):
         btnRegresar.grid(
             row=len(self.lista) + 1,
             column=0,
-            columnspan=2,
             padx=self.padX,
             pady=self.padY,
             )
-        
+            
+        btnMapa = Button(
+            self.ventana_principal,
+            text="Mostrar Mapa",
+            font=("Arial", 12),
+            bg=self.btnBg,
+            fg=self.btnFg,
+            command= {},
+        )
+        # El boton regresar debe ir abajo del listbox
+        btnMapa.grid(
+            row=len(self.lista) + 1,
+            column=1,
+            padx=self.padX,
+            pady=self.padY,
+            )
 
         self.ventana_principal.mainloop()
 
