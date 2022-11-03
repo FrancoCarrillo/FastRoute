@@ -1,56 +1,77 @@
 import math
-import grafo
+import heapq as hq
 import numpy as np
 import calle
 import interseccion
-import grafo
 import random
+import pandas as pd
+from collections import defaultdict
 
 
 class Fast_Route:
     def __init__(self):
-        self.lectura_calles = np.loadtxt(
-            "data/Calles.txt", dtype=np.str_, delimiter=","
-        )
-        self.letura_intersecciones = np.loadtxt(
-            "data/Interseccion.txt",
-            delimiter=",",
-            converters=lambda x: float(x),
-        )
+        self.letura_intersecciones = pd.read_csv("data\Interseccion.txt", sep=";", header=None)
         self.calles = dict()
-        self.intersecciones = dict()
-        self.grafo_ruta = grafo.Grafo()
+        self.intersecciones = {}
+        self.grafo_ruta = defaultdict(list)
+
 
     def leer_archivos(self):
-        # Mapeo de datos al un diccionario de objetos tipo Calle
-        for columna in self.lectura_calles:
-            self.calles[int(columna[0])] = calle.Calle(int(columna[0]), columna[1])
-
         # Mapeo de datos al un diccionario de objetos tipo Interseccion
-        for columna in self.letura_intersecciones:
+        for linea in self.letura_intersecciones.index:
             self.intersecciones[
-                int(columna[0]), int(columna[1])
+                (self.letura_intersecciones[5][linea], self.letura_intersecciones[6][linea])
             ] = interseccion.Interseccion(
-                int(columna[0]), int(columna[1]), columna[2], columna[3]
+                self.letura_intersecciones[2][linea], self.letura_intersecciones[5][linea], self.letura_intersecciones[6][linea], self.letura_intersecciones[7][linea]
             )
 
     def realizar_grafo(self):
-        # Agrega todos las calles como vertices del grafo
-        for clave in self.calles:
-            self.grafo_ruta.agregarVertice(int(self.calles[clave].id))
-
         # TODO--> Realizar validacion en el UI para que seleccione si la ruta es con trafico o no.
         # TODO--> Hallar la distancia entre dos puntos
         for clave in self.intersecciones:
-            self.grafo_ruta.agregarArista(
-                int(self.intersecciones[clave].calle1Id),
-                int(self.intersecciones[clave].calle2Id),
-                random.randint(1, 100),
-            )
+                self.grafo_ruta[self.intersecciones[clave].origenId].append(
+                    (self.intersecciones[clave].destinoId, self.intersecciones[clave].distancia))
 
-    def realizar_dijkstra(self, inicio):
-        self.grafo_ruta.dijkstra(inicio)
+    def dijkstra(self, nodoInicial):
+        visitado = defaultdict(lambda: False)
+        recorrido = defaultdict(lambda: None)
+        distancia_recorrido = defaultdict(lambda: math.inf)
+        distancia_recorrido[nodoInicial] = 0
+        cola_nodo = [(0, nodoInicial)]
+        while cola_nodo:
+            pesoAcumulado, nodoActual = hq.heappop(cola_nodo)
+            if not visitado[nodoActual]:
+                visitado[nodoActual] = True
+                for nodoVecino, peso in self.grafo_ruta[nodoActual]:
+                    temp_peso = float(pesoAcumulado) + float(peso)
+                    if temp_peso < distancia_recorrido[nodoVecino]:
+                        distancia_recorrido[nodoVecino] = temp_peso
+                        recorrido[nodoVecino] = nodoActual
+                        hq.heappush(cola_nodo, (temp_peso, nodoVecino))
+        return recorrido, distancia_recorrido
 
-    def hallar_camino_corto(self, inicio, final):
-        print("Camino: ", self.grafo_ruta.camino(inicio, final))
-        return self.grafo_ruta.camino(inicio, final)
+    def camino_corto(self, nodoInicial, nodoFinal, recorrido):
+        no_camino = False
+        nodoAnterior = nodoFinal
+        caminoCorto = [nodoFinal]
+        while not no_camino:
+            if recorrido[nodoAnterior] == None:
+                return False
+            nodoAnterior = recorrido[nodoAnterior]
+            caminoCorto.insert(0, nodoAnterior)
+            if nodoAnterior == nodoInicial:
+                no_camino = True
+        return caminoCorto
+
+    def hallar_camino_corto(self, nodoInicial, nodoFinal):
+        recorrido, distancia_recorrido = self.dijkstra(nodoInicial)
+        camino_corto = self.camino_corto(nodoInicial, nodoFinal, recorrido)
+        print(camino_corto)
+        print("El costo es: ", distancia_recorrido[nodoFinal], "km")
+
+        if camino_corto == False:
+            return False
+        
+        return [camino_corto, distancia_recorrido[nodoFinal]]
+
+

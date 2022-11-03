@@ -5,6 +5,7 @@ from tkinter.ttk import Combobox
 import fast_route as fr
 
 
+
 def validar_vacio(campo):
     if campo == "" or campo.isspace():
         return False
@@ -13,45 +14,31 @@ def validar_vacio(campo):
 
 
 def leerCalles():
-    # El archivo Calles.txt contiene la información de las calles. Se debe leer el archivo y almacenar cada calle en una lista. Estan registradas en el formato: id_calle, nombre_calle.
     # Se debe retornar la lista.
-    with open("data/Calles.txt", "r") as archivo:
+    with open("data/Interseccion.txt", "r", encoding="utf-8") as archivo:
         id_calle = []
         nombre_calle = []
         for linea in archivo:
-            id_calle.append(linea.split(",")[0])
-            nombre_calle.append(linea.split(",")[1])
+            id_calle.append(linea.split(";")[5])
+            nombre_calle.append(linea.split(";")[0] + " " + linea.split(";")[2])
     return id_calle, nombre_calle
 
-
-def leerDirecciones():
-    # Se debe almacenar en una lista las direcciones de origen. En el archivo direcciones.txt se encuentra la información de las direcciones de origen divididas por comas.
-    # Se debe leer el archivo y almacenar cada dirección en una lista.
-    # Se debe retornar la lista.
-    with open("data/direcciones.txt", "r") as archivo:
-        lista = archivo.read().split(",")
-    return lista
-
+destinos_, direcciones_ = leerCalles()
 
 def buscarCalleXId(lista_ids):
     lista_ids = [
         str(i)
-        if len(str(i)) == 2 or len(str(i)) == 3 or len(str(i)) == 4
-        else "0" + str(i)
         for i in lista_ids
     ]
-    # Mostrar la lista_ids
-    # print(lista_ids)
-    # print("*****************")
     # Ahora si leer el archivo y buscar el nombre de la calle
-    with open("data/Calles.txt", "r") as archivo:
+    with open("data/Interseccion.txt", "r", encoding="utf-8") as archivo:
         lista = []
         # Se debe buscar en todo el archivo id por id en el orden que vienen los de lista_ids. Y no debe continuar hasta que lo encuentre
         for id in lista_ids:
             archivo.seek(0)
             for linea in archivo:
-                if id == linea.split(",")[0]:
-                    lista.append(linea.split(",")[1])
+                if id == linea.split(";")[5]:
+                    lista.append(linea.split(";")[2])
                     break
     return lista
 
@@ -79,8 +66,7 @@ class Menu(InterfazGenerica):
         super().__init__()
         self.w = 350
         self.h = 250
-        self.id_origen, self.direccionesOrigen = leerCalles()
-        self.id_destino, self.direccionesDestino = leerCalles()
+        self.id_origen, self.direccionesOrigen =  self.id_destino, self.direccionesDestino = destinos_, direcciones_
         self.bg = "#ffffff"
         self.fg = "#000000"
         self.btnFg = "#ffffff"
@@ -88,6 +74,9 @@ class Menu(InterfazGenerica):
         self.padX = 20
         self.padY = 10
         self.iniciar("Menu")
+        self.program = fr.Fast_Route()
+        self.program.leer_archivos()
+        self.program.realizar_grafo()
         lblTituloMenu = Label(
             self.ventana_principal,
             text="Menu",
@@ -114,6 +103,7 @@ class Menu(InterfazGenerica):
             row=1, column=0, columnspan=2, padx=self.padX, pady=self.padY
         )
 
+        # Lista desplegable de direcciones de origen
         lblOrigen = Label(
             self.ventana_principal,
             text="Origen",
@@ -122,12 +112,12 @@ class Menu(InterfazGenerica):
             fg=self.fg,
         )
         lblOrigen.grid(row=2, column=0, padx=self.padX, pady=self.padY)
-        # Lista desplegable de direcciones de origen
-        # Se debe hacer un combo box
+
         self.comboOrigen = Combobox(
             self.ventana_principal, values=self.direccionesOrigen, state="readonly"
         )
         self.comboOrigen.grid(row=2, column=1, padx=self.padX, pady=self.padY)
+
         lblDestino = Label(
             self.ventana_principal,
             text="Destino",
@@ -136,6 +126,7 @@ class Menu(InterfazGenerica):
             fg=self.fg,
         )
         lblDestino.grid(row=3, column=0, padx=self.padX, pady=self.padY)
+
         self.comboDestino = Combobox(
             self.ventana_principal, values=self.direccionesDestino, state="readonly"
         )
@@ -158,7 +149,6 @@ class Menu(InterfazGenerica):
         ):
             messagebox.showinfo("Mensaje", "Buscando ruta")
             origen = self.comboOrigen.get()
-            # Necesito el id de la calle de origen
             id_origen = self.id_origen[self.direccionesOrigen.index(origen)]
             id_destino = self.id_destino[
                 self.direccionesDestino.index(self.comboDestino.get())
@@ -169,25 +159,26 @@ class Menu(InterfazGenerica):
             except ValueError as e:
                 print("Error" + str(e))
             # IMPLEMENTACION DE CODIGO DIJKSTRA
-            program = fr.Fast_Route()
-            program.leer_archivos()
-            program.realizar_grafo()
-            program.realizar_dijkstra(id_origen)
-            lista_listas = program.hallar_camino_corto(id_origen, id_destino)
-            lista_direcciones = []
-            for lista in lista_listas[0]:
-                lista_direcciones.append(lista)
-            # Se debe obtener el tiempo total
-            tiempo_total = lista_listas[1]
-            destino = self.comboDestino.get()
-            self.ventana_principal.destroy()
-            calles = buscarCalleXId(lista_direcciones)
-            # Castear la variable self.trafico a booleano
-            if self.trafico.get() == 1:
-                check = True
+            
+            lista_listas = self.program.hallar_camino_corto(id_origen, id_destino)
+
+            if lista_listas == False:
+                messagebox.showerror("Error", "No se ha encontrado una ruta")
             else:
-                check = False
-            Ruta(origen, destino, calles, tiempo_total, check)
+                lista_direcciones = []
+                for lista in lista_listas[0]:
+                    lista_direcciones.append(lista)
+                # Se debe obtener el tiempo total
+                tiempo_total = lista_listas[1]
+                destino = self.comboDestino.get()
+                self.ventana_principal.destroy()
+                calles = buscarCalleXId(lista_direcciones)
+                # Castear la variable self.trafico a booleano
+                if self.trafico.get() == 1:
+                    check = True
+                else:
+                    check = False
+                Ruta(origen, destino, calles, tiempo_total, check)
         else:
             messagebox.showerror("Error", "Debe ingresar origen y destino")
 
@@ -212,7 +203,7 @@ class Ruta(InterfazGenerica):
         if self.checkTrafico:
             lblTituloRuta = Label(
                 self.ventana_principal,
-                text="La Ruta demora " + str(tiempo_total) + " minutos",
+                text="La Ruta demora " + str(int(tiempo_total)) + " minutos",
                 font=("Arial", 20, "bold"),
                 bg=self.bg,
                 fg=self.fg,
@@ -220,7 +211,7 @@ class Ruta(InterfazGenerica):
         else:
             lblTituloRuta = Label(
                 self.ventana_principal,
-                text="La Ruta tiene " + str(tiempo_total) + " metros",
+                text="La Ruta tiene " + str(int(tiempo_total)) + " metros",
                 font=("Arial", 20, "bold"),
                 bg=self.bg,
                 fg=self.fg,
@@ -228,8 +219,8 @@ class Ruta(InterfazGenerica):
         lblTituloRuta.grid(
             row=0, column=0, columnspan=2, padx=self.padX, pady=self.padY
         )
-        # print("Origen : ", self.origen)
-        # print("Destino : ", self.destino)
+
+
         scroll = Scrollbar(self.ventana_principal, orient=VERTICAL)
         scroll.grid(row=1, column=1, rowspan=len(self.lista), sticky="nsew")
         self.listaDirecciones = Listbox(
@@ -263,7 +254,8 @@ class Ruta(InterfazGenerica):
             columnspan=2,
             padx=self.padX,
             pady=self.padY,
-        )
+            )
+        
 
         self.ventana_principal.mainloop()
 
