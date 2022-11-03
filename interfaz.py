@@ -42,36 +42,6 @@ def buscarCalleXId(lista_ids):
                     break
     return lista
 
-def mostrar_mapa(direccioes_id, program):
-
-        m = folium.Map(location=(program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX,
-                                 program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), zoom_start=17)
-
-        features = []
-
-
-        anterior = -1
-
-        for indice in range(len(direccioes_id) - 1):
-            if anterior != int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId):
-                anterior = int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId)
-
-            linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY,
-                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
-                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
-                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
-            features.append(Feature(geometry=linea))
-
-        feature_collection = FeatureCollection(features)
-
-        with open('ruta.geojson', 'w') as f:
-            dump(feature_collection, f)
-
-        rutaData = os.path.join("ruta.geojson")
-        folium.GeoJson(rutaData, name='ruta').add_to(m)
-        m.save("index.html")
-        webbrowser.open_new_tab('index.html')
-
 
 
 class InterfazGenerica:
@@ -294,7 +264,7 @@ class Ruta(InterfazGenerica):
             font=("Arial", 12),
             bg=self.btnBg,
             fg=self.btnFg,
-            command= mostrar_mapa(direccioes_id, self.program),
+            command= self.mostrar_mapa,
         )
         # El boton regresar debe ir abajo del listbox
         btnMapa.grid(
@@ -310,6 +280,35 @@ class Ruta(InterfazGenerica):
         self.ventana_principal.destroy()
         Menu()
 
+
+    def hacer_mapa(self, direccioes_id, program):
+        m = folium.Map(location=(program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX, program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), zoom_start=17)
+
+        features = []
+
+
+        anterior = -1
+
+        for indice in range(len(direccioes_id) - 1):
+            if anterior != int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId):
+                anterior = int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId)
+            linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY, program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
+            features.append(Feature(geometry=linea))
+
+        feature_collection = FeatureCollection(features)
+
+        with open('ruta.geojson', 'w') as f:
+            dump(feature_collection, f)
+
+        rutaData = os.path.join("ruta.geojson")
+        folium.GeoJson(rutaData, name='ruta').add_to(m)
+        m.save("index.html")
+        webbrowser.open_new_tab('index.html')
+
+    def mostrar_mapa(self):
+        self.hacer_mapa(self.direccioes_id, self.program)
 
 if __name__ == "__main__":
     Menu()
