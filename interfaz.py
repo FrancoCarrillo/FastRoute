@@ -3,8 +3,10 @@ from tkinter import messagebox
 from tkinter.font import Font
 from tkinter.ttk import Combobox
 import fast_route as fr
-
-
+import webbrowser
+from geojson import Point, Feature, FeatureCollection, dump, LineString
+import os
+import folium
 
 def validar_vacio(campo):
     if campo == "" or campo.isspace():
@@ -39,6 +41,37 @@ def buscarCalleXId(lista_ids):
                     lista.append(linea.split(";")[2])
                     break
     return lista
+
+def mostrar_mapa(direccioes_id, program):
+
+        m = folium.Map(location=(program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX,
+                                 program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), zoom_start=17)
+
+        features = []
+
+
+        anterior = -1
+
+        for indice in range(len(direccioes_id) - 1):
+            if anterior != int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId):
+                anterior = int(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].calleId)
+
+            linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY,
+                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
+            features.append(Feature(geometry=linea))
+
+        feature_collection = FeatureCollection(features)
+
+        with open('ruta.geojson', 'w') as f:
+            dump(feature_collection, f)
+
+        rutaData = os.path.join("ruta.geojson")
+        folium.GeoJson(rutaData, name='ruta').add_to(m)
+        m.save("index.html")
+        webbrowser.open_new_tab('index.html')
+
 
 
 class InterfazGenerica:
@@ -176,13 +209,13 @@ class Menu(InterfazGenerica):
                     check = True
                 else:
                     check = False
-                Ruta(origen, destino, calles, tiempo_total, check)
+                Ruta(origen, destino, calles, tiempo_total, check, lista_direcciones, self.program)
         else:
             messagebox.showerror("Error", "Debe ingresar origen y destino")
 
 
 class Ruta(InterfazGenerica):
-    def __init__(self, origen, destino, lista_direcciones, tiempo_total, checkTrafico):
+    def __init__(self, origen, destino, lista_direcciones, tiempo_total, checkTrafico, direccioes_id, program):
         super().__init__()
         self.w = 400
         self.h = 330
@@ -197,6 +230,8 @@ class Ruta(InterfazGenerica):
         self.btnBg = "#0077c2"
         self.padX = 20
         self.padY = 10
+        self.direccioes_id = direccioes_id
+        self.program = program
         self.iniciar("Ruta")
         if self.checkTrafico:
             lblTituloRuta = Label(
@@ -259,7 +294,7 @@ class Ruta(InterfazGenerica):
             font=("Arial", 12),
             bg=self.btnBg,
             fg=self.btnFg,
-            command= {},
+            command= mostrar_mapa(direccioes_id, self.program),
         )
         # El boton regresar debe ir abajo del listbox
         btnMapa.grid(

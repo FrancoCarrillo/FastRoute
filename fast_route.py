@@ -21,8 +21,9 @@ class Fast_Route:
         for linea in self.letura_intersecciones.index:
             self.intersecciones[
                 (self.letura_intersecciones[5][linea], self.letura_intersecciones[6][linea])
-            ] = interseccion.Interseccion(
-                self.letura_intersecciones[2][linea], self.letura_intersecciones[5][linea], self.letura_intersecciones[6][linea], self.letura_intersecciones[7][linea]
+            ] = interseccion.Interseccion( self.letura_intersecciones[1][linea],
+                self.letura_intersecciones[2][linea], self.letura_intersecciones[5][linea], self.letura_intersecciones[6][linea], self.letura_intersecciones[7][linea],
+                self.letura_intersecciones[11][linea], self.letura_intersecciones[12][linea], self.letura_intersecciones[13][linea], self.letura_intersecciones[14][linea]
             )
 
     def realizar_grafo(self):
@@ -66,6 +67,7 @@ class Fast_Route:
     def hallar_camino_corto(self, nodoInicial, nodoFinal):
         recorrido, distancia_recorrido = self.dijkstra(nodoInicial)
         camino_corto = self.camino_corto(nodoInicial, nodoFinal, recorrido)
+
         print(camino_corto)
         print("El costo es: ", distancia_recorrido[nodoFinal], "km")
 
