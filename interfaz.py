@@ -292,7 +292,7 @@ class Ruta(InterfazGenerica):
 
     def hacer_mapa(self, direccioes_id, program):
         m = folium.Map(location=(program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX, program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), zoom_start=17)
-
+        folium.TileLayer(tiles='Stamen Terrain', attr="<a href=https://endless-sky.github.io/>Endless Sky</a>").add_to(m)
         features = []
 
         len_intersecciones = len(direccioes_id)
@@ -326,7 +326,7 @@ class Ruta(InterfazGenerica):
             linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY, 
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
-                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
+                            program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)], color="red")
             features.append(Feature(geometry=linea))
 
         feature_collection = FeatureCollection(features)
