@@ -187,7 +187,7 @@ class Menu(InterfazGenerica):
 class Ruta(InterfazGenerica):
     def __init__(self, origen, destino, lista_direcciones, tiempo_total, checkTrafico, direccioes_id, program):
         super().__init__()
-        self.w = 400
+        self.w = 500
         self.h = 330
         self.lista = lista_direcciones
         self.tiempo_total = tiempo_total
@@ -212,13 +212,22 @@ class Ruta(InterfazGenerica):
                 fg=self.fg,
             )
         else:
-            lblTituloRuta = Label(
-                self.ventana_principal,
-                text="La Ruta tiene " + str(int(tiempo_total)) + " metros",
-                font=("Arial", 20, "bold"),
-                bg=self.bg,
-                fg=self.fg,
-            )
+            if float(tiempo_total) < 1:
+                lblTituloRuta = Label(
+                    self.ventana_principal,
+                    text="La Ruta tiene " + str(round(float(tiempo_total)*1000,2)) + " metros",
+                    font=("Arial", 20, "bold"),
+                    bg=self.bg,
+                    fg=self.fg,
+                )
+            else:
+                lblTituloRuta = Label(
+                    self.ventana_principal,
+                    text="La Ruta tiene " + str(round(float(tiempo_total),2)) + " kilometros",
+                    font=("Arial", 20, "bold"),
+                    bg=self.bg,
+                    fg=self.fg,
+                )
         lblTituloRuta.grid(
             row=0, column=0, columnspan=2, padx=self.padX, pady=self.padY
         )
@@ -289,7 +298,10 @@ class Ruta(InterfazGenerica):
         len_intersecciones = len(direccioes_id)
 
         folium.Marker(
-            (program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX, program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY), popup=f"<i>{program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].calle}</i>", tooltip="Start Place"
+            (program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenX, program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].origenY),
+            popup=f"<i>{program.intersecciones[(direccioes_id[0], direccioes_id[0 + 1])].calle}</i>", 
+            tooltip="Start Place",
+            icon=folium.Icon(color="green")
         ).add_to(m)
 
 
@@ -307,21 +319,22 @@ class Ruta(InterfazGenerica):
                         (program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].destinoX, 
                         program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].destinoY), 
                         popup=f"<i>{program.intersecciones[(direccioes_id[indice], direccioes_id[indice+1])].calle}</i>", 
-                        tooltip="End Place"
+                        tooltip="End Place",
+                        icon=folium.Icon(color="red")
                     ).add_to(m)
 
             linea = LineString([(program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenY, 
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
-            features.append(Feature(geometry=linea))
+            features.append(Feature(geometry=linea, properties={"width": "15px",  "stroke": "black", "style": {"color": "black"} }))
 
         feature_collection = FeatureCollection(features)
 
-        with open('fast_route.geojson', 'w') as f:
+        with open('temp_files/fast_route.geojson', 'w') as f:
             dump(feature_collection, f)
 
-        rutaData = os.path.join("fast_route.geojson")
+        rutaData = os.path.join("temp_files/fast_route.geojson")
         folium.GeoJson(rutaData, name='fast_route').add_to(m)
         m.save("index.html")
         webbrowser.open_new_tab('index.html')

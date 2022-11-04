@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_1b724abbc39935f1f0d128c04893a8ad {
+                #map_8860413edd81275e4e5ab2c6ae44ba38 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,15 +35,15 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_1b724abbc39935f1f0d128c04893a8ad" ></div>
+            <div class="folium-map" id="map_8860413edd81275e4e5ab2c6ae44ba38" ></div>
         
 </body>
 <script>    
     
-            var map_1b724abbc39935f1f0d128c04893a8ad = L.map(
-                "map_1b724abbc39935f1f0d128c04893a8ad",
+            var map_8860413edd81275e4e5ab2c6ae44ba38 = L.map(
+                "map_8860413edd81275e4e5ab2c6ae44ba38",
                 {
-                    center: [-12.0459308, -77.0427831],
+                    center: [-12.0461253, -77.0431113],
                     crs: L.CRS.EPSG3857,
                     zoom: 17,
                     zoomControl: true,
@@ -55,32 +55,38 @@
 
         
     
-            var tile_layer_5a95489f6fa0921d23a61f2a1fa843c1 = L.tileLayer(
+            var tile_layer_a0b5c6d0c73f438bf0a13c8755b39d00 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+            ).addTo(map_8860413edd81275e4e5ab2c6ae44ba38);
         
     
-            var marker_e6bc0bc145a8e5c1c352dd17e8659787 = L.marker(
-                [-12.0459308, -77.0427831],
+            var marker_df92c45565c2fc06c08e21d38b3cd11d = L.marker(
+                [-12.0461253, -77.0431113],
                 {}
-            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+            ).addTo(map_8860413edd81275e4e5ab2c6ae44ba38);
         
     
-        var popup_b41e9e6264dc88f925d77101441f3042 = L.popup({"maxWidth": "100%"});
+            var icon_d9625689496f1e39a4c019b54503a218 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_df92c45565c2fc06c08e21d38b3cd11d.setIcon(icon_d9625689496f1e39a4c019b54503a218);
+        
+    
+        var popup_8172306e9eefb1db39b5d7f85217dd50 = L.popup({"maxWidth": "100%"});
 
         
-            var html_fec6ae27306cc3b2993e89155ecb1e96 = $(`<div id="html_fec6ae27306cc3b2993e89155ecb1e96" style="width: 100.0%; height: 100.0%;"><i>Plaza 2 de Mayo</i></div>`)[0];
-            popup_b41e9e6264dc88f925d77101441f3042.setContent(html_fec6ae27306cc3b2993e89155ecb1e96);
+            var html_577b380a8fed15331dbdfa12b2cfb702 = $(`<div id="html_577b380a8fed15331dbdfa12b2cfb702" style="width: 100.0%; height: 100.0%;"><i>Plaza 2 de Mayo</i></div>`)[0];
+            popup_8172306e9eefb1db39b5d7f85217dd50.setContent(html_577b380a8fed15331dbdfa12b2cfb702);
         
 
-        marker_e6bc0bc145a8e5c1c352dd17e8659787.bindPopup(popup_b41e9e6264dc88f925d77101441f3042)
+        marker_df92c45565c2fc06c08e21d38b3cd11d.bindPopup(popup_8172306e9eefb1db39b5d7f85217dd50)
         ;
 
         
     
     
-            marker_e6bc0bc145a8e5c1c352dd17e8659787.bindTooltip(
+            marker_df92c45565c2fc06c08e21d38b3cd11d.bindTooltip(
                 `<div>
                      Start Place
                  </div>`,
@@ -88,26 +94,32 @@
             );
         
     
-            var marker_33d8083daa9caf3804ed41ca12c9f730 = L.marker(
-                [-12.0508129, -77.042518],
+            var marker_ca856d1de73973b4914ad9b5bb52b771 = L.marker(
+                [-12.0466033, -77.0431118],
                 {}
-            ).addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+            ).addTo(map_8860413edd81275e4e5ab2c6ae44ba38);
         
     
-        var popup_473203f36ff1ee65af945659c99f155b = L.popup({"maxWidth": "100%"});
+            var icon_d7f941a021be6ea716c0ab3ea4e58b5e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_ca856d1de73973b4914ad9b5bb52b771.setIcon(icon_d7f941a021be6ea716c0ab3ea4e58b5e);
+        
+    
+        var popup_a5e9ec9d650a7d89109c4543458432e8 = L.popup({"maxWidth": "100%"});
 
         
-            var html_793d86739372692f21beaada7f5a57a8 = $(`<div id="html_793d86739372692f21beaada7f5a57a8" style="width: 100.0%; height: 100.0%;"><i>Alfonso Ugarte</i></div>`)[0];
-            popup_473203f36ff1ee65af945659c99f155b.setContent(html_793d86739372692f21beaada7f5a57a8);
+            var html_e4eed07e965d343003f70b69995381d4 = $(`<div id="html_e4eed07e965d343003f70b69995381d4" style="width: 100.0%; height: 100.0%;"><i>Plaza 2 de Mayo</i></div>`)[0];
+            popup_a5e9ec9d650a7d89109c4543458432e8.setContent(html_e4eed07e965d343003f70b69995381d4);
         
 
-        marker_33d8083daa9caf3804ed41ca12c9f730.bindPopup(popup_473203f36ff1ee65af945659c99f155b)
+        marker_ca856d1de73973b4914ad9b5bb52b771.bindPopup(popup_a5e9ec9d650a7d89109c4543458432e8)
         ;
 
         
     
     
-            marker_33d8083daa9caf3804ed41ca12c9f730.bindTooltip(
+            marker_ca856d1de73973b4914ad9b5bb52b771.bindTooltip(
                 `<div>
                      End Place
                  </div>`,
@@ -116,21 +128,21 @@
         
     
 
-        function geo_json_f4d188b132355ae23b450aa19c615f3a_onEachFeature(feature, layer) {
+        function geo_json_34e23f48ca9727e50458f5778e0bf7a3_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_f4d188b132355ae23b450aa19c615f3a = L.geoJson(null, {
-                onEachFeature: geo_json_f4d188b132355ae23b450aa19c615f3a_onEachFeature,
+        var geo_json_34e23f48ca9727e50458f5778e0bf7a3 = L.geoJson(null, {
+                onEachFeature: geo_json_34e23f48ca9727e50458f5778e0bf7a3_onEachFeature,
             
         });
 
-        function geo_json_f4d188b132355ae23b450aa19c615f3a_add (data) {
-            geo_json_f4d188b132355ae23b450aa19c615f3a
+        function geo_json_34e23f48ca9727e50458f5778e0bf7a3_add (data) {
+            geo_json_34e23f48ca9727e50458f5778e0bf7a3
                 .addData(data)
-                .addTo(map_1b724abbc39935f1f0d128c04893a8ad);
+                .addTo(map_8860413edd81275e4e5ab2c6ae44ba38);
         }
-            geo_json_f4d188b132355ae23b450aa19c615f3a_add({"features": [{"geometry": {"coordinates": [[-77.042783, -12.045931], [-77.04309, -12.046096]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.04309, -12.046096], [-77.043111, -12.046125]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043111, -12.046125], [-77.043175, -12.046277]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043175, -12.046277], [-77.043112, -12.046603]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043112, -12.046603], [-77.043048, -12.046678]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043048, -12.046678], [-77.042787, -12.047613]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042787, -12.047613], [-77.042752, -12.048184]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042752, -12.048184], [-77.042653, -12.049088]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042653, -12.049088], [-77.042556, -12.050478]], "type": "LineString"}, "properties": {}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.042556, -12.050478], [-77.042518, -12.050813]], "type": "LineString"}, "properties": {}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_34e23f48ca9727e50458f5778e0bf7a3_add({"features": [{"geometry": {"coordinates": [[-77.043111, -12.046125], [-77.043175, -12.046277]], "type": "LineString"}, "properties": {"stroke": "black", "style": {"color": "black"}, "width": "15px"}, "type": "Feature"}, {"geometry": {"coordinates": [[-77.043175, -12.046277], [-77.043112, -12.046603]], "type": "LineString"}, "properties": {"stroke": "black", "style": {"color": "black"}, "width": "15px"}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
 </script>
