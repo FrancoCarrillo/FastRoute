@@ -327,14 +327,14 @@ class Ruta(InterfazGenerica):
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].origenX), (
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoY,
                             program.intersecciones[(direccioes_id[indice], direccioes_id[indice + 1])].destinoX)])
-            features.append(Feature(geometry=linea, properties={"width": "15px",  "stroke": "black", "style": {"color": "black"} }))
+            features.append(Feature(geometry=linea))
 
         feature_collection = FeatureCollection(features)
 
-        with open('temp_files/fast_route.geojson', 'w') as f:
+        with open('temp/fast_route.geojson', 'w') as f:
             dump(feature_collection, f)
 
-        rutaData = os.path.join("temp_files/fast_route.geojson")
+        rutaData = os.path.join("temp/fast_route.geojson")
         folium.GeoJson(rutaData, name='fast_route').add_to(m)
         m.save("index.html")
         webbrowser.open_new_tab('index.html')
