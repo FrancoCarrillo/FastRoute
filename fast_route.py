@@ -26,10 +26,15 @@ class Fast_Route:
                 self.letura_intersecciones[11][linea], self.letura_intersecciones[12][linea], self.letura_intersecciones[13][linea], self.letura_intersecciones[14][linea]
             )
 
-    def realizar_grafo(self):
-        # TODO--> Realizar validacion en el UI para que seleccione si la ruta es con trafico o no.
-        # TODO--> Hallar la distancia entre dos puntos
-        for clave in self.intersecciones:
+    def realizar_grafo(self, trafico):
+        if(trafico == 1):
+            print("Con trafico")
+            for clave in self.intersecciones:
+                self.grafo_ruta[self.intersecciones[clave].origenId].append(
+                    (self.intersecciones[clave].destinoId, self.intersecciones[clave].porc_trafico))
+        elif(trafico == 0):
+            print("Sin trafico")
+            for clave in self.intersecciones:
                 self.grafo_ruta[self.intersecciones[clave].origenId].append(
                     (self.intersecciones[clave].destinoId, self.intersecciones[clave].distancia))
 

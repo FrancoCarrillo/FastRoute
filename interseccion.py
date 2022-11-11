@@ -1,3 +1,4 @@
+import random
 class Interseccion:
     def __init__(self, calleId, calle, origenId, destinoId, distancia, origenX, origenY, destinoX, destinoY):
         self.calleId = calleId
@@ -9,3 +10,4 @@ class Interseccion:
         self.destinoX = destinoX
         self.origenY = origenY
         self.destinoY = destinoY
+        self.porc_trafico = random.randint(1,100)

@@ -77,7 +77,6 @@ class Menu(InterfazGenerica):
         self.iniciar("Menu")
         self.program = fr.Fast_Route()
         self.program.leer_archivos()
-        self.program.realizar_grafo()
         lblTituloMenu = Label(
             self.ventana_principal,
             text="Menu",
@@ -160,7 +159,7 @@ class Menu(InterfazGenerica):
             except ValueError as e:
                 print("Error" + str(e))
             # IMPLEMENTACION DE CODIGO DIJKSTRA
-            
+            self.program.realizar_grafo(self.trafico.get())
             lista_listas = self.program.hallar_camino_corto(id_origen, id_destino)
 
             if lista_listas == False:
