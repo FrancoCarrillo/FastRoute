@@ -60,6 +60,74 @@ class InterfazGenerica:
         self.ventana_principal.geometry("%dx%d+%d+%d" % (self.w, self.h, x, y))
         self.ventana_principal.config(bg="#ffffff")
         self.ventana_principal.resizable(0, 0)
+        self.bg = "#ffffff"
+        self.fg = "#000000"
+        self.btnFg = "#ffffff"
+        self.btnBg = "#0077c2"
+        self.padX = 20
+        self.padY = 10
+
+class Creditos(InterfazGenerica):
+    def __init__(self):
+        super().__init__()
+        self.w = 180
+        self.h = 250
+        self.iniciar("Créditos")
+        lblTitulo = Label(
+            self.ventana_principal,
+            text="Créditos",
+            font=("Arial", 20,"bold"),
+            bg=self.bg,
+            fg=self.fg,
+        )
+        lblTitulo.grid(row=0, column=0, columnspan=2, pady=(self.padY, 0), padx=self.padX)
+        #Debe ser un botón que redirija a la página de github
+        btnNombre1 = Button(
+            self.ventana_principal,
+            text="Franco Carrillo",
+            font=("Arial", 12),
+            bg=self.btnBg,
+            fg=self.btnFg,
+            command=lambda: webbrowser.open("https://github.com/FrancoCarrillo"),
+        )
+        btnNombre1.grid(row=1, column=0, pady=(self.padY, 0), padx=self.padX,columnspan=2)
+        btnNombre2 = Button(
+            self.ventana_principal,
+            text="Samuel Cano",
+            font=("Arial", 12),
+            bg=self.btnBg,
+            fg=self.btnFg,
+            command=lambda: webbrowser.open("https://github.com/SamuelCano03"),
+        )
+        btnNombre2.grid(row=2, column=0, pady=(self.padY, 0), padx=self.padX,columnspan=2)
+        btnNombre3 = Button(
+            self.ventana_principal,
+            text="Eleazar Braco",
+            font=("Arial", 12),
+            bg=self.btnBg,
+            fg=self.btnFg,
+            command=lambda: webbrowser.open("https://github.com/EleazarBT"),
+        )
+        btnNombre3.grid(row=3, column=0, pady=(self.padY, 0), padx=self.padX,columnspan=2)
+        btnRegresar = Button(
+            self.ventana_principal,
+            text="Regresar",
+            font=("Arial", 12),
+            bg="#ff1e08",
+            fg=self.btnFg,
+            command=self.regresar,
+        )
+        # El boton regresar debe ir abajo del listbox
+        btnRegresar.grid(
+            row=4,
+            column=0,
+            padx=self.padX,
+            pady=self.padY,
+            )
+
+    def regresar(self):
+        self.ventana_principal.destroy()
+        Menu()
 
 
 class Menu(InterfazGenerica):
@@ -68,12 +136,6 @@ class Menu(InterfazGenerica):
         self.w = 350
         self.h = 250
         self.id_origen, self.direccionesOrigen =  self.id_destino, self.direccionesDestino = leerCalles()
-        self.bg = "#ffffff"
-        self.fg = "#000000"
-        self.btnFg = "#ffffff"
-        self.btnBg = "#0077c2"
-        self.padX = 20
-        self.padY = 10
         self.iniciar("Menu")
         self.program = fr.Fast_Route()
         self.program.leer_archivos()
@@ -139,9 +201,21 @@ class Menu(InterfazGenerica):
             fg=self.btnFg,
             command=self.buscar,
         )
-        btnBuscar.grid(row=4, column=0, columnspan=2, padx=self.padX, pady=self.padY)
-
+        btnBuscar.grid(row=4, column=1, padx=self.padX, pady=self.padY)
+        btnCreditos = Button(
+            self.ventana_principal,
+            text="Creditos",
+            font=("Arial", 12),
+            bg="#39b6db",
+            fg=self.btnFg,
+            command=self.creditos,
+        )
+        btnCreditos.grid(row=4, column=0,  padx=self.padX, pady=self.padY)
         self.ventana_principal.mainloop()
+
+    def creditos(self):
+        self.ventana_principal.destroy()
+        Creditos()
 
     def buscar(self):
         if validar_vacio(self.comboOrigen.get()) and validar_vacio(
@@ -193,12 +267,6 @@ class Ruta(InterfazGenerica):
         self.origen = origen
         self.destino = destino
         self.checkTrafico = checkTrafico
-        self.bg = "#ffffff"
-        self.fg = "#000000"
-        self.btnFg = "#ffffff"
-        self.btnBg = "#0077c2"
-        self.padX = 20
-        self.padY = 10
         self.direccioes_id = direccioes_id
         self.program = program
         self.iniciar("Ruta")
